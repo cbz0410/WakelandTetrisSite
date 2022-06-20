@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | WakelandTetris</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <title>WakelandTetris</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.png">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
-  <body>
+  <body style = "background-color: #1E272E;">
+    <div>
+      <p class = "top-logo">Wakeland Tetris</p>
+    </div>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=1000 height=563></canvas>
+      <canvas class = "game-canvas" id="unity-canvas" width=1000 height=563></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -20,7 +26,40 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">WakelandTetris</div>
+        <div id="unity-build-title"></div>
+      </div>
+    </div>
+    <div class = "keybindings-container">
+      <div class = "action">
+        <p>Move Block</p>
+      </div>
+      <div class = "action">
+        <p>Soft Drop</p>
+      </div>
+      <div class = "action">
+        <p>Rotate</p>
+      </div>
+      <div class = "action">
+        <p>Save Piece</p>
+      </div>
+      <div class = "action">
+        <p>Hard Drop</p>
+      </div>
+
+      <div class = "bind">
+        <p>Left, Right, A, D</p>
+      </div>
+      <div class = "bind">
+        <p>Down, S</p>
+      </div>
+      <div class = "bind">
+        <p>Up, Q, E, Z, X</p>
+      </div>
+      <div class = "bind">
+        <p>C, LShift</p>
+      </div>
+      <div class = "bind">
+        <p>Space</p>
       </div>
     </div>
     <script>
