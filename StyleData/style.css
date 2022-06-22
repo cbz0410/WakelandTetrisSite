@@ -1,0 +1,28 @@
+.text {
+  color: #BF623F;
+  font-family: 'VT323', monospace;
+  text-align: center;
+}
+
+.about-the-game,
+.key-bindings {
+  background-color: #364959;
+}
+
+.bindings-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+}
+
+.binds {
+  border: 2px;
+  border-right: 1px;
+  border-style: solid;
+  border-color: #1E272E;
+
+  font-size: 18px;
+
+  height: 80px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

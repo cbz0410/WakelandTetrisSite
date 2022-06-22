@@ -4,124 +4,70 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>WakelandTetris</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.png">
-    <link rel="stylesheet" href="TemplateData/style.css">
+    <title>WakelandTetris Online</title>
+    <link rel="shortcut icon" href="StyleData/wakelandtetris.png">
+    <link rel="stylesheet" href="StyleData/style.css">
   </head>
-  <body style = "background-color: #1E272E;">
-    <div>
-      <p class = "top-logo">Wakeland Tetris</p>
-    </div>
-    <div id="unity-container" class="unity-desktop">
-      <canvas class = "game-canvas" id="unity-canvas" width=1000 height=563></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+  <body style="text-align: center; background-color: #1E272E;">
+    <h1 class="text" style="font-size: 100px; margin-bottom: 10px; margin-top: 90px;">WAKELAND TETRIS</h1>
+    <div style="display: grid; grid-template-columns: 1fr 1000px 1fr;">
+      <div class="about-the-game">
+        <div>
+          <h2 class="text" style="margin-top: 80px; margin-bottom: 10px;">ABOUT THE GAME</h2>
+        </div>
+        <div>
+          <h4 class="text" style="font-size: 18px; margin-top: 10px;">
+            WAKELAND TETRIS IS AN OPEN-SOURCE BROWSER IMPLEMENTATION OF TETRIS BUILT WITH UNITY GAME ENGINE. IT AIMS TO BE A RIGOROUSLY-EFFICIENT AND, BY EXTENSION,
+            FAST VERSION THEMED AFTER THE WAKELAND WOLVERINES OF WAKELAND HIGH SCHOOL.
+          </h4>
+        </div>
+        <div>
+          <h2 class="text" style="margin-top: 150px; margin-bottom: 10px;">HOW TO PLAY</h2>
+        </div>
+        <div>
+          <h4 class="text" style="font-size: 18px; margin-top: 10px;">
+            YOUR OBJECT IS TO BUILD AS MANY LINES AS POSSIBLE WHILE PREVENTING BOARD OVERFLOW. ONCE THE BOARD IS FILLED, THE GAME IS OVER AND THE GAME RESETS.
+          </h4>
         </div>
       </div>
-      <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title"></div>
+      <div><canvas id="unity-canvas" width=1000 height=563 style="width: 1000px; height: 563px; background: #1E272E; border: 8px; border-color: #364959; border-style: solid;"></canvas></div>
+      <div class="key-bindings">
+        <div>
+          <h2 class="text">KEY BINDINGS</h2>
+        </div>
+        <div class="bindings-grid">
+          <div></div> <div class="text"><h4 class="binds">MOVE BLOCK</h4></div> <div class="text"><h4 class="binds">LEFT, RIGHT, A, D</h4></div> <div></div>
+          <div></div> <div class="text"><h4 class="binds">SOFT DROP</h4></div> <div class="text"><h4 class="binds">DOWN, S</h4></div> <div></div>
+          <div></div> <div class="text"><h4 class="binds">HARD DROP</h4></div> <div class="text"><h4 class="binds">SPACE</h4></div> <div></div>
+          <div></div> <div class="text"><h4 class="binds">ROTATE</h4></div> <div class="text"><h4 class="binds">UP, LSHIFT, Q, E, Z, X</h4></div> <div></div>
+          <div></div> <div class="text"><h4 class="binds">HOLD</h4></div> <div class="text"><h4 class="binds">C</h4></div> <div></div>
+        </div>
       </div>
     </div>
+    <script src="Build/WebGL.loader.js"></script>
     <script>
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-      var warningBanner = document.querySelector("#unity-warning");
-
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
-      function unityShowBanner(msg, type) {
-        function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-        }
-        var div = document.createElement('div');
-        div.innerHTML = msg;
-        warningBanner.appendChild(div);
-        if (type == 'error') div.style = 'background: red; padding: 10px;';
-        else {
-          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-          setTimeout(function() {
-            warningBanner.removeChild(div);
-            updateBannerVisibility();
-          }, 5000);
-        }
-        updateBannerVisibility();
-      }
-
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/WebGL.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/WebGL.data.unityweb",
-        frameworkUrl: buildUrl + "/WebGL.framework.js.unityweb",
-        codeUrl: buildUrl + "/WebGL.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "cbz0410",
-        productName: "WakelandTetris",
-        productVersion: "1.0",
-        showBanner: unityShowBanner,
-      };
-
-      // By default Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
-
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
-
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
-        container.className = "unity-mobile";
-
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
-
-        canvas.style.width = window.innerWidth + 'px';
-        canvas.style.height = window.innerHeight + 'px';
-
-        unityShowBanner('WebGL builds are not supported on mobile devices.');
-      } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
-        canvas.style.width = "1000px";
-        canvas.style.height = "563px";
       }
 
-      loadingBar.style.display = "block";
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-          loadingBar.style.display = "none";
-          fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
-          };
-        }).catch((message) => {
-          alert(message);
-        });
-      };
-      document.body.appendChild(script);
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/WebGL.data.unityweb",
+        frameworkUrl: "Build/WebGL.framework.js.unityweb",
+        codeUrl: "Build/WebGL.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "cbz0410",
+        productName: "WakelandTetris",
+        productVersion: "1.0",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
     </script>
   </body>
 </html>
